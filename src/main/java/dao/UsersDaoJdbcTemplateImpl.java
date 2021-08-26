@@ -1,5 +1,6 @@
 package dao;
 
+import model.Car;
 import model.User;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -7,10 +8,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 
 import javax.sql.DataSource;
 import java.sql.ResultSet;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 public class UsersDaoJdbcTemplateImpl implements UsersDao {
 
@@ -41,12 +39,6 @@ public class UsersDaoJdbcTemplateImpl implements UsersDao {
         return template.query(SQL_SELECT_ALL_BY_FIRST_NAME, userRowMapperWithoutCars, firstName);
     }
 
-    private RowMapper<User> userRowMapperWithoutCars = (ResultSet resultSet, int i) -> User.builder()
-            .id(resultSet.getLong("id"))
-            .firstName(resultSet.getString("first_name"))
-            .lastName(resultSet.getString("last_name"))
-            .build();
-
     @Override
     public Optional<User> find(Long id) {
         Map<String, Object> params = new HashMap<>();
@@ -67,17 +59,33 @@ public class UsersDaoJdbcTemplateImpl implements UsersDao {
     }
 
     @Override
-    public void update(User model) {
-
-    }
-
-    @Override
-    public void delete(Long id) {
-
-    }
-
-    @Override
     public List<User> findAll() {
-        return null;
+        List<User> result = template.query(SQL_SELECT_USERS_WITH_CARS, userListRowMapper);
+        usersMap.clear();
+        return result;
     }
+
+
+    private RowMapper<User> userRowMapperWithoutCars = (ResultSet resultSet, int i) -> User.builder()
+            .id(resultSet.getLong("id"))
+            .firstName(resultSet.getString("first_name"))
+            .lastName(resultSet.getString("last_name"))
+            .build();
+
+    private RowMapper<User> userListRowMapper
+            = (ResultSet resultSet, int i) -> {
+        Long id = resultSet.getLong("id");
+
+        if (!usersMap.containsKey(id)) {
+            String firstName = resultSet.getString("first_name");
+            String lastName = resultSet.getString("second_name");
+            User user = new User(id, firstName, lastName, new ArrayList<>());
+            usersMap.put(id, user);
+        }
+
+        Car car = new Car(resultSet.getLong("car_id"),
+                resultSet.getString("model"), usersMap.get(id));
+        usersMap.get(id).getCars().add(car);
+        return usersMap.get(id);
+    };
 }

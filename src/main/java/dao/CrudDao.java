@@ -8,9 +8,5 @@ public interface CrudDao<T> {
 
     void save(T model);
 
-    void update(T model);
-
-    void delete(Long id);
-
     List<T> findAll();
 }
