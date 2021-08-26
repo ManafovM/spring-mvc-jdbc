@@ -2,14 +2,17 @@ package dao;
 
 import model.Car;
 import model.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
 import java.sql.ResultSet;
 import java.util.*;
 
+@Component
 public class UsersDaoJdbcTemplateImpl implements UsersDao {
 
     private JdbcTemplate template;
@@ -29,6 +32,7 @@ public class UsersDaoJdbcTemplateImpl implements UsersDao {
     private final String SQL_INSERT_USER =
             "INSERT INTO users(first_name, last_name) VALUES (:firstName, :lastName)";
 
+    @Autowired
     public UsersDaoJdbcTemplateImpl(DataSource dataSource) {
         this.template = new JdbcTemplate(dataSource);
         this.namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(dataSource);
