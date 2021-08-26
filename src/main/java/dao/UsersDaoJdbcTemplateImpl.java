@@ -78,7 +78,7 @@ public class UsersDaoJdbcTemplateImpl implements UsersDao {
 
         if (!usersMap.containsKey(id)) {
             String firstName = resultSet.getString("first_name");
-            String lastName = resultSet.getString("second_name");
+            String lastName = resultSet.getString("last_name");
             User user = new User(id, firstName, lastName, new ArrayList<>());
             usersMap.put(id, user);
         }
