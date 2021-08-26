@@ -1,14 +1,12 @@
 package model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@ToString(exclude = "owner")
 public class Car {
     private long id;
     private String model;
