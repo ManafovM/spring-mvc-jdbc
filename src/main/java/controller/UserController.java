@@ -2,6 +2,7 @@ package controller;
 
 import dao.UsersDao;
 import model.User;
+import model.UserForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -41,5 +42,12 @@ public class UserController {
         modelAndView.setViewName("users");
         user.ifPresent(value -> modelAndView.addObject("usersFromServer", Collections.singletonList(value)));
         return modelAndView;
+    }
+
+    @RequestMapping(path = "/users", method = RequestMethod.POST)
+    public String addUser(UserForm userForm) {
+        User newUser = User.from(userForm);
+        usersDao.save(newUser);
+        return "redirect:users";
     }
 }

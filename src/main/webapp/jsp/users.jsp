@@ -10,7 +10,7 @@
     <div class="form-style-2-heading">
         Please Sign Up!
     </div>
-    <form method="post" action="/add">
+    <form method="post" action="/users">
         <label for="firstName">First Name
             <input class="input-field" type="text" id="firstName" name="firstName">
         </label>

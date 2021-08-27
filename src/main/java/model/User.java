@@ -16,4 +16,11 @@ public class User {
     private String firstName;
     private String lastName;
     List<Car> cars;
+
+    public static User from(UserForm form) {
+        return User.builder()
+                .firstName(form.getFirstName())
+                .lastName(form.getLastName())
+                .build();
+    }
 }
