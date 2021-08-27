@@ -11,15 +11,16 @@ repositories {
 }
 
 dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
-    compile group: 'org.springframework', name: 'spring-webmvc', version: '5.3.7'
-    compile group: 'javax.servlet', name: 'javax.servlet-api', version: '4.0.1'
-    compile group: 'jstl', name: 'jstl', version: '1.2'
-    compile group: 'org.springframework', name: 'spring-jdbc', version: '5.3.7'
-    compile group: 'org.postgresql', name: 'postgresql', version: '42.2.20'
-    compileOnly 'org.projectlombok:lombok:1.18.20'
-    annotationProcessor 'org.projectlombok:lombok:1.18.20'
+    implementation('org.springframework:spring-webmvc:5.3.7')
+    implementation('javax.servlet:javax.servlet-api:4.0.1')
+    implementation('jstl:jstl:1.2')
+    implementation('org.springframework:spring-jdbc:5.3.7')
+    implementation('org.postgresql:postgresql:42.2.20')
+    implementation('org.projectlombok:lombok:1.18.20')
+    annotationProcessor('org.projectlombok:lombok:1.18.20')
+    implementation('javax.persistence:javax.persistence-api:2.2')
+    implementation('org.hibernate:hibernate-core:5.4.31.Final')
+    implementation('org.springframework.data:spring-data-jpa:2.5.1')
 }
 
 test {
