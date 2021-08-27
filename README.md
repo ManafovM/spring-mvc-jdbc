@@ -1,1 +1,1 @@
-# spring-mvc-jdbc
+# Пример приложения Spring Web MVC + Spring JDBC
